@@ -4,10 +4,10 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-
-@app.route("/")
-def return_hostname():
-    return "<h1>Page served from host : {}</h1>".format(socket.gethostname())
+@app.route('/', defaults={'path': '/'})
+@app.route('/<path:path>')
+def return_hostname(path):
+    return "<h1>Path {} served from host : {}</h1>".format(path, socket.gethostname())
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True, use_debugger=False, use_reloader=True)
